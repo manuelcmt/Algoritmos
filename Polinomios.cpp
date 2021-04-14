@@ -1,6 +1,6 @@
 #include <iostream>
 /*
-    Autor: Manuel Cris髄ogo
+    Autor: Manuel Cris贸logo
 */
 using namespace std;
 
@@ -12,20 +12,20 @@ int main()
     int nP = 10;
     double P[nP + 1] = {4, 3, 0, 21, 9.31, 3, 0, 0, 0, 0, 1.1};
 
-    cout << std::fixed << "f(x) = " << EvaluarPolinomio(P, nP, 4.45) << endl;
+    cout << fixed << "f(x) = " << EvaluarPolinomio(P, nP, 4.45) << endl;
 
     return 0;
 }
 
 
-inline double Elevar(const double x, const int n, double *conocidos[]){
+double Elevar(const double x, const int n, double *conocidos[]){
     double resultado = 0;
 
     if (conocidos[n])
         resultado = *conocidos[n];
 
     else{
-        if (n == 0) resultado = 1; //Se puede quitar predefiniendo como 0 el primer n鷐ero de los conocidos
+        if (n == 0) resultado = 1; //Se puede quitar predefiniendo como 0 el primer n煤mero de los conocidos
         else if (n % 2 == 1) resultado = x * Elevar(x, n - 1, conocidos);
         else{
             resultado = Elevar(x, n / 2, conocidos);
@@ -43,22 +43,22 @@ inline double Elevar(const double x, const int n, double *conocidos[]){
 double EvaluarPolinomio(const double P[], const int nP, const double x){
     double *xn_conocidos[nP + 1];
     double resultado = 0;
-    double nuevo = 0; // Solo para versi髇 ilustrativa.
+    double nuevo = 0; // Solo para versi贸n ilustrativa.
 
     for (int i = 0 ; i <= nP ; ++i)
         xn_conocidos[i] = NULL;
 
-    //  C醠culos
+    //  C谩lculos
     for (int i = nP ; i >= 0 ; --i)
         if (P[i] != 0){
-            // Ilustrativo. La 鷑ica instrucci髇 para implementarlo es la 鷏tima (comentada)
+            // Ilustrativo. La 煤nica instrucci贸n para implementarlo es la 煤ltima (comentada)
             nuevo = P[i] * Elevar(x, i, xn_conocidos);
-            cout << "+" << nuevo << endl;
+            cout << "+" << fixed << nuevo << endl;
             resultado += nuevo;
             // resultado += P[i] * Elevar(x, i, xn_conocidos); // Solo esto es necesario
         }
 
-    //  Elimina los datos temporales de la funci髇 auxiliar
+    //  Elimina los datos temporales de la funci贸n auxiliar
     for (int i = 0 ; i <= nP ; ++i)
         if (xn_conocidos[i]) delete xn_conocidos[i];
 
